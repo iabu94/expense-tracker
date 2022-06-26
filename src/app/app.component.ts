@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { collection, collectionData, Firestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'expense-tracker';
+  collection$: Observable<any>;
+
+  constructor(private firestore: Firestore) {
+    this.collection$ = collectionData(
+      collection(this.firestore, 'expense')
+    );
+  }
 }
