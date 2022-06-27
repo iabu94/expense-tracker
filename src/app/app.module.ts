@@ -8,8 +8,10 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { MatButtonModule } from "@angular/material/button";
 import { MatChipsModule } from "@angular/material/chips";
+import { MatSelectModule } from "@angular/material/select";
 import { MatInputModule } from "@angular/material/input";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCee210mW-D0qam6z7QLttAnhnDXxCcySk",
@@ -34,7 +36,9 @@ const firebaseConfig = {
     BrowserAnimationsModule,
     MatButtonModule,
     MatInputModule,
-    MatChipsModule
+    MatChipsModule,
+    MatSelectModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

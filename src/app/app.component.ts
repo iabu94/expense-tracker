@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { addDoc, collection, collectionData, doc, docData, Firestore, updateDoc } from '@angular/fire/firestore';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { ENTITY } from './enums';
 import { Suggestion } from './models';
@@ -11,16 +12,29 @@ import { FirestoreService } from './services';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  collection$: Observable<any>;
+
+  expenseForm = this.fb.group({
+    description: ['', Validators.required],
+    amount: [0, Validators.required],
+    type: ['D', Validators.required],
+  });
+
   suggestions$: Observable<Suggestion[]>;
 
-  constructor(private firestore: Firestore, private fireService: FirestoreService) {
-    this.collection$ = collectionData(
-      collection(this.firestore, ENTITY.EXPENSE)
-    );
+  constructor(private firestore: Firestore,
+    private fireService: FirestoreService,
+    private fb: FormBuilder) {
 
     // Get All Sugeestions
     this.suggestions$ = this.fireService.getAll<Suggestion>(ENTITY.SUGGESTION)
+  }
+
+  addExpense() {}
+
+  changeDescription = (suggestion: any) => this.f.description.patchValue(suggestion);
+
+  get f() {
+    return this.expenseForm.controls;
   }
 
   // Get All
