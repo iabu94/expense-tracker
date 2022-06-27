@@ -1,4 +1,26 @@
+<h2>Expense Tracker - Abdullah Mansoor</h2>
+
+<div class="create-expense">
+  <form>
+    <mat-form-field class="example-form-field" appearance="fill">
+      <mat-label>Description</mat-label>
+      <input matInput type="text" >
+    </mat-form-field>
+    <mat-form-field class="example-form-field" appearance="fill">
+      <mat-label>Amount</mat-label>
+      <input matInput type="number" >
+    </mat-form-field>
+    <button mat-raised-button type="submit" color="primary">Add Expense</button>
+  </form>
+</div>
+
+<div class="suggestions">
+  <mat-chip-list aria-label="Suggestions">
+    <mat-chip *ngFor="let suggestion of suggestions$ | async">{{suggestion.name}}</mat-chip>
+  </mat-chip-list>
+</div>
+
 
 <ul>
-  <li *ngFor="let item of collection$ | async">{{item.Description}}</li>
+  <li *ngFor="let item of collection$ | async">{{item.description}}</li>
 </ul>
