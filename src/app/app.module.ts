@@ -30,7 +30,7 @@ import { ExpenseListComponent } from './components/expense-list/expense-list.com
     BrowserModule,
     AppRoutingModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
+    //provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     BrowserAnimationsModule,
     MatButtonModule,
