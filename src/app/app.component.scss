@@ -18,3 +18,20 @@ form {
   display: flex;
   justify-content: center;
 }
+
+.summary {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.credit {
+  color: green;
+  font-weight: bold;
+}
+
+.debit {
+  color: red;
+  font-weight: bold;
+}

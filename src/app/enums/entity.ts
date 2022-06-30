@@ -1,4 +1,5 @@
 export enum ENTITY {
   EXPENSE = 'expense',
-  SUGGESTION = 'suggestions'
+  SUGGESTION = 'suggestions',
+  SUMMARY = 'summary'
 }
