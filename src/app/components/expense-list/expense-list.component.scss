@@ -1,0 +1,17 @@
+table {
+  width: 100%
+}
+
+::ng-deep .mat-dialog-container {
+  padding: 0 !important;
+}
+.mat-row {
+  height: auto;
+}
+
+.mat-cell {
+  padding: 8px 8px 8px 0;
+}
+.mat-column-amount {
+  text-align: right;
+}

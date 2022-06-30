@@ -2,10 +2,12 @@ import { Component } from '@angular/core';
 import { addDoc, collection, collectionData, doc, docData, Firestore, updateDoc } from '@angular/fire/firestore';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from "@angular/material/dialog";
 import { combineLatest, map, Observable, tap } from 'rxjs';
 import { COMMON, ENTITY } from './enums';
 import { Expense, Suggestion, Summary } from './models';
 import { FirestoreService } from './services';
+import { ExpenseListComponent } from './components';
 
 interface ViewModel {
   expenses: Expense[];
@@ -35,7 +37,8 @@ export class AppComponent {
 
   constructor(private firestore: Firestore,
     private fireService: FirestoreService,
-    private fb: FormBuilder, private snackBar: MatSnackBar) {
+    private fb: FormBuilder, private snackBar: MatSnackBar,
+    public dialog: MatDialog) {
 
     // Get All Sugeestions
     this.suggestions$ = this.fireService.getAll<Suggestion>(ENTITY.SUGGESTION);
@@ -117,8 +120,13 @@ export class AppComponent {
       .filter(e => e.description === COMMON.HSBC.toString())
       .reduce((sum, current) => sum + current.amount, 0);
   }
-
-  viewAll() { }
+  viewAllExpenses(expenses: Expense[]) {
+    this.dialog.open(ExpenseListComponent, {
+      data: {
+        expenses
+      },
+    });
+  }
 
   // Get All
   getAll() {
