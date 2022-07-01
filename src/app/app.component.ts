@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { addDoc, collection, collectionData, doc, docData, Firestore, updateDoc } from '@angular/fire/firestore';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from "@angular/material/dialog";
-import { combineLatest, map, Observable, tap } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { combineLatest, map, Observable } from 'rxjs';
+import { ExpenseListComponent } from './components';
 import { COMMON, ENTITY } from './enums';
 import { Expense, Suggestion, Summary } from './models';
 import { FirestoreService } from './services';
-import { ExpenseListComponent } from './components';
 
 interface ViewModel {
   expenses: Expense[];
@@ -95,8 +95,9 @@ export class AppComponent {
     if (today.getDate() >= 25) {
       id = `${today.getFullYear()}${today.getMonth() + 1}-${today.getFullYear()}${today.getMonth() + 2}`;
     } else {
-      id = `${today.getFullYear()}${today.getMonth() + 1}-${today.getFullYear()}${today.getMonth()}`;
+      id = `${today.getFullYear()}${today.getMonth()}-${today.getFullYear()}${today.getMonth() + 1}`;
     }
+    console.log(id);
     return id;
   }
   getTotalExpense(expenses: Expense[]) {
