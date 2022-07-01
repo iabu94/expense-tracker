@@ -59,7 +59,20 @@ export class AppComponent {
   }
 
   addExpense() {
-    this.fireService.add(ENTITY.EXPENSE, this.expenseForm.value).then(
+    if (this.f.description.value === 'Add-on') {
+      const exp: Expense  = {
+        amount: Number(this.f.amount.value) * -1,
+        date: new Date(),
+        description: '- Savings',
+        type: 'S'
+      };
+      this.addExp(exp);
+    }
+    this.addExp(this.expenseForm.value);
+  }
+
+  addExp(expense: Expense | any) {
+    this.fireService.add(ENTITY.EXPENSE, expense).then(
       () => {
         this.expenseForm.reset();
         this.f.type.patchValue('D');
@@ -97,11 +110,17 @@ export class AppComponent {
     } else {
       id = `${today.getFullYear()}${today.getMonth()}-${today.getFullYear()}${today.getMonth() + 1}`;
     }
-    console.log(id);
     return id;
   }
   getTotalExpense(expenses: Expense[]) {
-    return expenses.reduce((sum, current) => sum + current.amount, 0);
+    return expenses.filter(e => e.type === 'D').reduce((sum, current) => sum + current.amount, 0);
+  }
+  getBalance(salary: number, expenses: Expense[]) {
+    return salary - expenses.filter(e => e.type === 'D' || e.type === 'S')
+      .reduce((sum, current) => sum + current.amount, 0);
+  }
+  getSavings(expenses: Expense[]) {
+    return expenses.filter(e => e.type === 'S').reduce((sum, current) => sum + current.amount, 0);
   }
   getSumOf(expenses: Expense[], field: COMMON) {
     return expenses

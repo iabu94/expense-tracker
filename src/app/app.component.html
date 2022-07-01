@@ -15,6 +15,7 @@
       <mat-select formControlName="type">
         <mat-option value="D">Debit</mat-option>
         <mat-option value="C">Credit</mat-option>
+        <mat-option value="S">Savings</mat-option>
       </mat-select>
     </mat-form-field>
     <div class="date-picker">
@@ -44,8 +45,10 @@
 </div>
 
 <div class="summary" *ngIf="vm$ | async as vm">
-  <p>Salary Credited: <span class="credit">{{vm.summary.salary| currency: 'LKR '}}</span></p>
-  <p>AMEX Due:
+  <p>Salary Credited: <span class="credit">{{vm.summary.salary | currency: 'LKR '}}</span></p>
+  <p>Savings: <span class="credit">{{ getSavings(vm.expenses)| currency: 'LKR '}}</span></p>
+  <p> AMEX Due: </p>
+  <p>
     <span class="debit">
       {{ vm.summary.amexDue | currency: 'LKR '}}
     </span> -
@@ -56,7 +59,8 @@
       {{finalDue(vm.summary.amexDue, vm.expenses, commonEnum.AMEX) | currency: 'LKR '}}
     </span>
   </p>
-  <p>HSBC Due:
+  <p>HSBC Due: </p>
+  <p>
     <span class="debit">
       {{ vm.summary.hsbcDue | currency: 'LKR '}}
     </span> -
@@ -73,8 +77,8 @@
     </span>
   </p>
   <p>Balance Remaining:
-    <span [ngClass]="vm.summary.salary - getTotalExpense(vm.expenses) > 0 ? 'credit' : 'debit'">
-      {{vm.summary.salary - getTotalExpense(vm.expenses) | currency: 'LKR '}}
+    <span [ngClass]="getBalance(vm.summary.salary, vm.expenses) > 0 ? 'credit' : 'debit'">
+      {{ getBalance(vm.summary.salary, vm.expenses) | currency: 'LKR '}}
     </span>
   </p>
   <button mat-raised-button type="button" (click)="viewAllExpenses(vm.expenses)">View All</button>
