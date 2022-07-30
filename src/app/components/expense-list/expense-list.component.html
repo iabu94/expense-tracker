@@ -1,6 +1,6 @@
 <mat-dialog-content>
   <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8" matSortActive="date"
-    matSortDirection="asc">
+    matSortDirection="asc" id="excel-table">
 
     <ng-container matColumnDef="date">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
@@ -21,4 +21,5 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+  <button type="button" mat-raised-button color="primary" (click)="exportToExcel()">Export</button>
 </mat-dialog-content>

@@ -1,7 +1,8 @@
-import { AfterViewInit, Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Inject, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatSort, Sort } from '@angular/material/sort';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { utils, WorkBook, WorkSheet, writeFile } from 'xlsx';
 import { Expense } from '../../models';
 
 interface DialogData {
@@ -24,5 +25,18 @@ export class ExpenseListComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
+  }
+
+  exportToExcel() {
+    /* pass here the table id */
+    let element = document.getElementById('excel-table');
+    const ws: WorkSheet = utils.table_to_sheet(element);
+
+    /* generate workbook and add the worksheet */
+    const wb: WorkBook = utils.book_new();
+    utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    writeFile(wb, `${(new Date()).toDateString()}.xlsx`);
   }
 }
