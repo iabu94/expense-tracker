@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { addDoc, collection, collectionData, doc, docData, Firestore, updateDoc } from '@angular/fire/firestore';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from "@angular/material/dialog";
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { combineLatest, map, Observable } from 'rxjs';
 import { ExpenseListComponent } from './components';
 import { COMMON, ENTITY } from './enums';
 import { Expense, Suggestion, Summary } from './models';
 import { FirestoreService } from './services';
+import { SnackbarService } from './services/snackbar.service';
 
 interface ViewModel {
   expenses: Expense[];
@@ -37,7 +37,7 @@ export class AppComponent {
 
   constructor(private firestore: Firestore,
     private fireService: FirestoreService,
-    private fb: FormBuilder, private snackBar: MatSnackBar,
+    private fb: FormBuilder, private snackBar: SnackbarService,
     public dialog: MatDialog) {
 
     // Get All Sugeestions
@@ -77,12 +77,7 @@ export class AppComponent {
         this.expenseForm.reset();
         this.f.type.patchValue('D');
         this.f.date.patchValue(this.today);
-        this.snackBar.open('Saved successfully.', '', {
-          horizontalPosition: 'right',
-          verticalPosition: 'top',
-          duration: 2000,
-          panelClass: ['snack-bar']
-        })
+        this.snackBar.show("Saved successfully!")
       },
       () => console.log('failed')
     );

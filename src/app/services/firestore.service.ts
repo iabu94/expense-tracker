@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { collectionData, Firestore, collection, doc, docData, addDoc } from '@angular/fire/firestore';
+import { addDoc, collection, collectionData, deleteDoc, doc, docData, Firestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { ENTITY } from '../enums';
 
@@ -12,7 +12,8 @@ export class FirestoreService {
 
   getAll<T>(entity: ENTITY) {
     return collectionData(
-      collection(this.firestore, entity)
+      collection(this.firestore, entity),
+      { idField: "id" }
     ) as Observable<T[]>;
   }
 
@@ -24,5 +25,10 @@ export class FirestoreService {
   add<T>(entity: ENTITY, model: T) {
     const collectionRef = collection(this.firestore, entity);
     return addDoc(collectionRef, model);
+  }
+
+  delete(entity: ENTITY, id: string) {
+    const docRef = doc(this.firestore, entity, id);
+    return deleteDoc(docRef);
   }
 }
