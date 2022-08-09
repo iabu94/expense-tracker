@@ -33,7 +33,8 @@ export class ExpenseListComponent implements AfterViewInit {
 
   deleteRow() {
     this.fireService.delete(ENTITY.EXPENSE, this.selectedRowId).then(() => {
-      this.snackbar.show("Deleted successfully.!")
+      this.snackbar.show("Deleted successfully.!");
+      this.selectedRowId = "";
     });
   }
 

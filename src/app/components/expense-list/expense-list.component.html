@@ -22,5 +22,5 @@
     <tr mat-row [ngClass]="selectedRowId === row.id ? 'selected-row' : ''" (click)="selectedRowId = row.id" *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
   <button type="button" mat-raised-button color="primary" (click)="exportToExcel()">Export</button>
-  <button type="button" mat-raised-button color="warn" (click)="deleteRow()">Delete</button>
+  <button *ngIf="!!selectedRowId" type="button" mat-raised-button color="warn" (click)="deleteRow()">Delete</button>
 </mat-dialog-content>
