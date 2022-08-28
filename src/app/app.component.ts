@@ -159,7 +159,6 @@ export class AppComponent {
 
     /* save to file */
     writeFile(wb, `${(new Date()).toDateString()}.xlsx`);
-    console.log(expenses);
   }
 
   // Get All
