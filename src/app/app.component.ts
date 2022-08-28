@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { addDoc, collection, collectionData, doc, docData, Firestore, Timestamp, updateDoc } from '@angular/fire/firestore';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from "@angular/material/dialog";
@@ -37,6 +37,8 @@ export class AppComponent {
   vm$: Observable<ViewModel>;
   suggestions$: Observable<Suggestion[]>;
   expenseTotal = 0;
+
+  @ViewChild('amount') amountElement!: ElementRef;
 
   constructor(private firestore: Firestore,
     private fireService: FirestoreService,
@@ -86,7 +88,10 @@ export class AppComponent {
     );
   }
 
-  changeDescription = (suggestion: any) => this.f.description.patchValue(suggestion);
+  changeDescription(suggestion: any) {
+    this.f.description.patchValue(suggestion);
+    this.amountElement.nativeElement.focus();
+  }
 
   get f() {
     return this.expenseForm.controls;
@@ -148,9 +153,10 @@ export class AppComponent {
   download(expenses: Expense[]) {
     const exps = expenses.map(e => {
       return {
-        Date: this.datePipe.transform((e.date as unknown as Timestamp).toDate(), "dd/MM"),
+        Date: (e.date as unknown as Timestamp).toDate(),
         Description: e.description,
-        Amount: e.amount
+        Amount: e.amount,
+        Type: this.getType(e.type)
       }
     });
     const ws = utils.json_to_sheet(exps);
@@ -159,6 +165,21 @@ export class AppComponent {
 
     /* save to file */
     writeFile(wb, `${(new Date()).toDateString()}.xlsx`);
+  }
+  getType(t: string) {
+    if (t.toLowerCase() === 'c') {
+      return 'Credit';
+    }
+    if (t.toLowerCase() === 'd') {
+      return 'Debit';
+    }
+    if (t.toLowerCase() === 's') {
+      return 'Savings';
+    }
+    if (t.toLowerCase() === '-s') {
+      return '-Savings';
+    }
+    return '';
   }
 
   // Get All
