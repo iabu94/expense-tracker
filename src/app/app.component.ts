@@ -1,8 +1,10 @@
+import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { addDoc, collection, collectionData, doc, docData, Firestore, updateDoc } from '@angular/fire/firestore';
+import { addDoc, collection, collectionData, doc, docData, Firestore, Timestamp, updateDoc } from '@angular/fire/firestore';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from "@angular/material/dialog";
 import { combineLatest, map, Observable } from 'rxjs';
+import { utils, writeFile } from 'xlsx';
 import { ExpenseListComponent } from './components';
 import { COMMON, ENTITY } from './enums';
 import { Expense, Suggestion, Summary } from './models';
@@ -17,7 +19,8 @@ interface ViewModel {
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  providers: [DatePipe]
 })
 export class AppComponent {
 
@@ -38,7 +41,7 @@ export class AppComponent {
   constructor(private firestore: Firestore,
     private fireService: FirestoreService,
     private fb: FormBuilder, private snackBar: SnackbarService,
-    public dialog: MatDialog) {
+    public dialog: MatDialog, private datePipe: DatePipe) {
 
     // Get All Sugeestions
     this.suggestions$ = this.fireService.getAll<Suggestion>(ENTITY.SUGGESTION);
@@ -60,7 +63,7 @@ export class AppComponent {
 
   addExpense() {
     if (this.f.description.value === 'Add-on') {
-      const exp: Expense  = {
+      const exp: Expense = {
         amount: Number(this.f.amount.value) * -1,
         date: new Date(),
         description: '- Savings',
@@ -141,6 +144,22 @@ export class AppComponent {
         expenses
       },
     });
+  }
+  download(expenses: Expense[]) {
+    const exps = expenses.map(e => {
+      return {
+        Date: this.datePipe.transform((e.date as unknown as Timestamp).toDate(), "dd/MM"),
+        Description: e.description,
+        Amount: e.amount
+      }
+    });
+    const ws = utils.json_to_sheet(exps);
+    const wb = utils.book_new();
+    utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    writeFile(wb, `${(new Date()).toDateString()}.xlsx`);
+    console.log(expenses);
   }
 
   // Get All
