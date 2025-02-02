@@ -13,9 +13,10 @@ interface DialogData {
 }
 
 @Component({
-  selector: 'app-expense-list',
-  templateUrl: './expense-list.component.html',
-  styleUrls: ['./expense-list.component.scss']
+    selector: 'app-expense-list',
+    templateUrl: './expense-list.component.html',
+    styleUrls: ['./expense-list.component.scss'],
+    standalone: false
 })
 export class ExpenseListComponent implements AfterViewInit {
   dataSource = new MatTableDataSource(this.data.expenses);

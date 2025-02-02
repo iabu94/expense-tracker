@@ -17,10 +17,11 @@ interface ViewModel {
 }
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  providers: [DatePipe]
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    providers: [DatePipe],
+    standalone: false
 })
 export class AppComponent {
 
