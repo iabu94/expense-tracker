@@ -17,7 +17,7 @@ import { MatOption } from '@angular/material/core';
 import { MatIconButton, MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatDatepickerInput, MatDatepickerToggle, MatDatepicker } from '@angular/material/datepicker';
-import { MatChip } from '@angular/material/chips';
+import { MatChip, MatChipListbox, MatChipSet } from '@angular/material/chips';
 
 interface ViewModel {
   expenses: Expense[];
@@ -29,7 +29,29 @@ interface ViewModel {
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
     providers: [DatePipe],
-    imports: [ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatSelect, MatOption, MatIconButton, MatIcon, MatDatepickerInput, MatDatepickerToggle, MatSuffix, MatDatepicker, MatButton, NgFor, MatChip, NgIf, NgClass, AsyncPipe, CurrencyPipe]
+    standalone: true,
+    imports: [
+      MatChipSet,
+      ReactiveFormsModule, 
+      MatFormField, 
+      MatLabel, 
+      MatInput, 
+      MatSelect, 
+      MatOption, 
+      MatIconButton, 
+      MatIcon, 
+      MatDatepickerInput, 
+      MatDatepickerToggle, 
+      MatSuffix, 
+      MatDatepicker, 
+      MatButton, 
+      NgFor, 
+      MatChip, 
+      NgIf, 
+      NgClass, 
+      AsyncPipe, 
+      CurrencyPipe,
+    ]
 })
 export class AppComponent {
 

@@ -37,11 +37,11 @@
 </div>
 
 <div class="suggestions">
-  <mat-chip-list aria-label="Suggestions">
+  <mat-chip-set aria-label="Suggestions">
     <mat-chip *ngFor="let suggestion of suggestions$ | async" (click)="changeDescription(suggestion.name)">
       {{suggestion.name}}</mat-chip>
     <mat-chip (click)="changeDescription('')">X</mat-chip>
-  </mat-chip-list>
+  </mat-chip-set>
 </div>
 
 <div class="summary" *ngIf="vm$ | async as vm">
