@@ -4,7 +4,6 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { MatButtonModule } from "@angular/material/button";
 import { MatChipsModule } from "@angular/material/chips";
@@ -29,9 +28,6 @@ import { ExpenseListComponent } from './components/expense-list/expense-list.com
   imports: [
     BrowserModule,
     AppRoutingModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    //provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore()),
     BrowserAnimationsModule,
     MatButtonModule,
     MatInputModule,
@@ -46,7 +42,10 @@ import { ExpenseListComponent } from './components/expense-list/expense-list.com
     MatTableModule,
     MatSortModule
   ],
-  providers: [],
+  providers: [
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => getFirestore())
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
