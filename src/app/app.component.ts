@@ -1,7 +1,7 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgFor, NgIf, NgClass, AsyncPipe, CurrencyPipe } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { addDoc, collection, collectionData, doc, docData, Firestore, Timestamp, updateDoc } from '@angular/fire/firestore';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from "@angular/material/dialog";
 import { combineLatest, map, Observable } from 'rxjs';
 import { utils, writeFile } from 'xlsx';
@@ -10,6 +10,14 @@ import { COMMON, ENTITY } from './enums';
 import { Expense, Suggestion, Summary } from './models';
 import { FirestoreService } from './services';
 import { SnackbarService } from './services/snackbar.service';
+import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { MatIconButton, MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatDatepickerInput, MatDatepickerToggle, MatDatepicker } from '@angular/material/datepicker';
+import { MatChip } from '@angular/material/chips';
 
 interface ViewModel {
   expenses: Expense[];
@@ -21,7 +29,7 @@ interface ViewModel {
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
     providers: [DatePipe],
-    standalone: false
+    imports: [ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatSelect, MatOption, MatIconButton, MatIcon, MatDatepickerInput, MatDatepickerToggle, MatSuffix, MatDatepicker, MatButton, NgFor, MatChip, NgIf, NgClass, AsyncPipe, CurrencyPipe]
 })
 export class AppComponent {
 
