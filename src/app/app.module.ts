@@ -21,31 +21,29 @@ import { MatSortModule } from '@angular/material/sort';
 import { ExpenseListComponent } from './components/expense-list/expense-list.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ExpenseListComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatButtonModule,
-    MatInputModule,
-    MatChipsModule,
-    MatSelectModule,
-    ReactiveFormsModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatIconModule,
-    MatSnackBarModule,
-    MatDialogModule,
-    MatTableModule,
-    MatSortModule
-  ],
-  providers: [
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideFirestore(() => getFirestore())
-  ],
-  bootstrap: [AppComponent]
+    declarations: [AppComponent],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatButtonModule,
+        MatInputModule,
+        MatChipsModule,
+        MatSelectModule,
+        ReactiveFormsModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatIconModule,
+        MatSnackBarModule,
+        MatDialogModule,
+        MatTableModule,
+        MatSortModule,
+        ExpenseListComponent
+    ],
+    providers: [
+        provideFirebaseApp(() => initializeApp(environment.firebase)),
+        provideFirestore(() => getFirestore())
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

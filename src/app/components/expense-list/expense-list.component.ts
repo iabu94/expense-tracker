@@ -1,12 +1,15 @@
 import { AfterViewInit, Component, Inject, ViewChild } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
+import { MatSort, MatSortHeader } from '@angular/material/sort';
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 import { ENTITY } from 'src/app/enums';
 import { FirestoreService } from 'src/app/services';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { utils, WorkBook, WorkSheet, writeFile } from 'xlsx';
 import { Expense } from '../../models';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { NgClass, NgIf, CurrencyPipe, DatePipe } from '@angular/common';
+import { MatButton } from '@angular/material/button';
 
 interface DialogData {
   expenses: Expense[]
@@ -16,7 +19,7 @@ interface DialogData {
     selector: 'app-expense-list',
     templateUrl: './expense-list.component.html',
     styleUrls: ['./expense-list.component.scss'],
-    standalone: false
+    imports: [CdkScrollable, MatDialogContent, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, NgClass, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatButton, NgIf, CurrencyPipe, DatePipe]
 })
 export class ExpenseListComponent implements AfterViewInit {
   dataSource = new MatTableDataSource(this.data.expenses);
