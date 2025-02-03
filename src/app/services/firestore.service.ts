@@ -18,7 +18,7 @@ import { ENTITY } from '../enums';
 export class FirestoreService {
   constructor(private firestore: Firestore) {}
 
-  getAll<T>(entity: ENTITY) {
+  getAll<T>(entity: ENTITY | string) {
     return collectionData(collection(this.firestore, entity), {
       idField: 'id',
     }) as Observable<T[]>;

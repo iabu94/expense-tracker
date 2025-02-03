@@ -57,7 +57,9 @@ export class AddExpenseComponent {
 
   addExpense() {
     const entity = `${ENTITY.EXPENSE}-${this.getSelectedMonthName()}`;
-    this.fireService.add(entity, this.expenseForm.value);
+    this.fireService.add(entity, this.expenseForm.value).then(() => {
+      this.expenseForm.reset();
+    });
   }
 
   prevDay() {
