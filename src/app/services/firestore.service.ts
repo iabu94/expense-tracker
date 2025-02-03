@@ -34,7 +34,7 @@ export class FirestoreService {
     return addDoc(collectionRef, model);
   }
 
-  delete(entity: ENTITY, id: string) {
+  delete(entity: ENTITY | string, id: string) {
     const docRef = doc(this.firestore, entity, id);
     return deleteDoc(docRef);
   }

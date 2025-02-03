@@ -21,6 +21,7 @@ export class ViewSummaryComponent {
     this.fireService
       .getAll<Expense>(`${ENTITY.EXPENSE}-${currentShortMonth()}`)
       .subscribe((expenses) => {
+        this.dialog.closeAll();
         this.dialog.open(ExpenseListComponent, {
           data: {
             expenses,

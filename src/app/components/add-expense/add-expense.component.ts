@@ -49,17 +49,16 @@ export class AddExpenseComponent {
 
     this.loadDescriptions();
 
-    // Setup autocomplete filtering
     this.expenseForm
       .get('description')!
       .valueChanges.subscribe((key) => this.filterDescriptionKey.set(key));
   }
 
-  addExpense() {
+  async addExpense() {
     const entity = `${ENTITY.EXPENSE}-${this.getSelectedMonthName()}`;
-    this.fireService.add(entity, this.expenseForm.value).then(() => {
-      this.expenseForm.reset();
-    });
+    await this.fireService.add(entity, this.expenseForm.value);
+    this.expenseForm.controls['description'].patchValue('');
+    this.expenseForm.controls['amount'].patchValue('');
   }
 
   prevDay() {

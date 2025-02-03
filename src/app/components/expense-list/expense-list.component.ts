@@ -18,6 +18,7 @@ import {
   MatTableDataSource,
 } from '@angular/material/table';
 import { ENTITY } from 'src/app/enums';
+import { currentShortMonth } from 'src/app/helpers';
 import { FirestoreService } from 'src/app/services';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { utils, WorkBook, WorkSheet, writeFile } from 'xlsx';
@@ -71,11 +72,11 @@ export class ExpenseListComponent implements AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
-  deleteRow() {
-    this.fireService.delete(ENTITY.EXPENSE, this.selectedRowId).then(() => {
-      this.snackbar.show('Deleted successfully.!');
-      this.selectedRowId = '';
-    });
+  async deleteRow() {
+    const entity = `${ENTITY.EXPENSE}-${currentShortMonth()}`;
+    await this.fireService.delete(entity, this.selectedRowId);
+    this.snackbar.show('Deleted successfully.!');
+    this.selectedRowId = '';
   }
 
   exportToExcel() {

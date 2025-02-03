@@ -40,11 +40,8 @@
         [defaultValue]="today"
       />
       <mat-hint>MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle
-        matIconSuffix
-        [for]="picker"
-      ></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
+      <mat-datepicker-toggle matIconSuffix [for]="picker" />
+      <mat-datepicker #picker />
     </mat-form-field>
 
     <button mat-icon-button (click)="nextDay()">
@@ -52,13 +49,7 @@
     </button>
   </div>
 
-  <button
-    class="mt-2"
-    mat-raised-button
-    color="primary"
-    type="submit"
-    (click)="addExpense()"
-  >
+  <button class="mt-2" mat-raised-button color="primary" (click)="addExpense()">
     Add Expense
   </button>
 </form>
