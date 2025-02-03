@@ -1,0 +1,64 @@
+<h1>Expense Tracker</h1>
+
+<form [formGroup]="expenseForm">
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <input
+      matInput
+      formControlName="description"
+      placeholder="Enter description"
+      [matAutocomplete]="auto"
+    />
+    <mat-autocomplete #auto="matAutocomplete">
+      @for (description of filteredDescriptions(); track $index) {
+      <mat-option [value]="description">
+        {{ description }}
+      </mat-option>
+      }
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Amount</mat-label>
+    <input
+      matInput
+      type="number"
+      formControlName="amount"
+      placeholder="Enter amount"
+    />
+  </mat-form-field>
+  <div class="date-navigation flex items-center gap-2">
+    <button mat-icon-button (click)="prevDay()">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+
+    <mat-form-field>
+      <mat-label>Date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        formControlName="date"
+        [defaultValue]="today"
+      />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <button mat-icon-button (click)="nextDay()">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </div>
+
+  <button
+    class="mt-2"
+    mat-raised-button
+    color="primary"
+    type="submit"
+    (click)="addExpense()"
+  >
+    Add Expense
+  </button>
+</form>

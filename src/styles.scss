@@ -1,7 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 .snack-bar {
   background: #51a351;
@@ -12,4 +19,40 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 .debit {
   color: red;
+}
+h2 {
+  margin-top: 20px;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.create-expense {
+  padding: 2%;
+}
+
+.suggestions {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.summary {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.credit,
+.debit {
+  font-weight: bold;
+}
+
+.mat-chip:hover {
+  cursor: pointer;
 }

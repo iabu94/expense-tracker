@@ -19,7 +19,28 @@ interface DialogData {
     selector: 'app-expense-list',
     templateUrl: './expense-list.component.html',
     styleUrls: ['./expense-list.component.scss'],
-    imports: [CdkScrollable, MatDialogContent, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, NgClass, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatButton, NgIf, CurrencyPipe, DatePipe]
+    standalone: true,
+    imports: [
+      CdkScrollable, 
+      MatDialogContent, 
+      MatTable, 
+      MatSort, 
+      MatColumnDef, 
+      MatHeaderCellDef, 
+      MatHeaderCell, 
+      MatSortHeader, 
+      MatCellDef, 
+      MatCell, 
+      NgClass, 
+      MatHeaderRowDef, 
+      MatHeaderRow, 
+      MatRowDef, 
+      MatRow, 
+      MatButton, 
+      NgIf, 
+      CurrencyPipe, 
+      DatePipe,
+    ]
 })
 export class ExpenseListComponent implements AfterViewInit {
   dataSource = new MatTableDataSource(this.data.expenses);

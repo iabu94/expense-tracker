@@ -1,86 +1,109 @@
-<h2>Expense Tracker - Abdullah Mansoor</h2>
+<router-outlet />
+
+<!-- <h2>Expense Tracker - Abdullah Mansoor</h2>
 
 <div class="create-expense">
-  <form autocomplete="off" [formGroup]="expenseForm" (ngSubmit)="addExpense()">
-    <mat-form-field class="example-form-field" appearance="fill">
-      <mat-label>Description</mat-label>
-      <input formControlName="description" matInput type="text">
-    </mat-form-field>
-    <mat-form-field class="example-form-field" appearance="fill">
-      <mat-label>Amount</mat-label>
-      <input #amount formControlName="amount" matInput type="number">
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Transaction Type</mat-label>
-      <mat-select formControlName="type">
-        <mat-option value="D">Debit</mat-option>
-        <mat-option value="C">Credit</mat-option>
-        <mat-option value="S">Savings</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <div class="date-picker">
-      <button type="button" mat-icon-button color="primary" (click)="datePrev()">
-        <mat-icon>arrow_back_ios</mat-icon>
-      </button>
-      <mat-form-field appearance="fill">
-        <mat-label>Choose a date</mat-label>
-        <input formControlName="date" matInput [matDatepicker]="picker">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-      <button type="button" mat-icon-button color="primary" (click)="dateNext()">
-        <mat-icon>arrow_forward_ios</mat-icon>
-      </button>
-    </div>
-    <button mat-raised-button type="submit" color="primary">Add Expense</button>
-  </form>
+  <app-expense-form />
 </div>
 
 <div class="suggestions">
   <mat-chip-set aria-label="Suggestions">
-    <mat-chip *ngFor="let suggestion of suggestions$ | async" (click)="changeDescription(suggestion.name)">
-      {{suggestion.name}}</mat-chip>
+    <mat-chip
+      *ngFor="let suggestion of suggestions$ | async"
+      (click)="changeDescription(suggestion.name)"
+    >
+      {{ suggestion.name }}</mat-chip
+    >
     <mat-chip (click)="changeDescription('')">X</mat-chip>
   </mat-chip-set>
 </div>
 
 <div class="summary" *ngIf="vm$ | async as vm">
-  <p>Salary Credited: <span class="credit">{{vm.summary.salary | currency: 'LKR '}}</span></p>
-  <p>Savings: <span class="credit">{{ getSavings(vm.expenses)| currency: 'LKR '}}</span></p>
-  <p> AMEX Due: </p>
+  <p>
+    Salary Credited:
+    <span class="credit">{{ vm.summary.salary | currency : "LKR " }}</span>
+  </p>
+  <p>
+    Savings:
+    <span class="credit">{{
+      getSavings(vm.expenses) | currency : "LKR "
+    }}</span>
+  </p>
+  <p>AMEX Due:</p>
   <p>
     <span class="debit">
-      {{ vm.summary.amexDue | currency: 'LKR '}}
-    </span> -
+      {{ vm.summary.amexDue | currency : "LKR " }}
+    </span>
+    -
     <span class="credit">
-      {{ getSumOf(vm.expenses, commonEnum.AMEX) | currency: 'LKR '}}
-    </span> =
-    <span [ngClass]="finalDue(vm.summary.amexDue, vm.expenses, commonEnum.AMEX) > 0 ? 'debit' : 'credit'">
-      {{finalDue(vm.summary.amexDue, vm.expenses, commonEnum.AMEX) | currency: 'LKR '}}
+      {{ getSumOf(vm.expenses, commonEnum.AMEX) | currency : "LKR " }}
+    </span>
+    =
+    <span
+      [ngClass]="
+        finalDue(vm.summary.amexDue, vm.expenses, commonEnum.AMEX) > 0
+          ? 'debit'
+          : 'credit'
+      "
+    >
+      {{
+        finalDue(vm.summary.amexDue, vm.expenses, commonEnum.AMEX)
+          | currency : "LKR "
+      }}
     </span>
   </p>
-  <p>HSBC Due: </p>
+  <p>HSBC Due:</p>
   <p>
     <span class="debit">
-      {{ vm.summary.hsbcDue | currency: 'LKR '}}
-    </span> -
+      {{ vm.summary.hsbcDue | currency : "LKR " }}
+    </span>
+    -
     <span class="credit">
-      {{ getSumOf(vm.expenses, commonEnum.HSBC) | currency: 'LKR '}}
-    </span> =
-    <span [ngClass]="finalDue(vm.summary.hsbcDue, vm.expenses, commonEnum.HSBC) > 0 ? 'debit' : 'credit'">
-      {{finalDue(vm.summary.hsbcDue, vm.expenses, commonEnum.HSBC) | currency: 'LKR '}}
+      {{ getSumOf(vm.expenses, commonEnum.HSBC) | currency : "LKR " }}
+    </span>
+    =
+    <span
+      [ngClass]="
+        finalDue(vm.summary.hsbcDue, vm.expenses, commonEnum.HSBC) > 0
+          ? 'debit'
+          : 'credit'
+      "
+    >
+      {{
+        finalDue(vm.summary.hsbcDue, vm.expenses, commonEnum.HSBC)
+          | currency : "LKR "
+      }}
     </span>
   </p>
-  <p>Total Expenses:
+  <p>
+    Total Expenses:
     <span class="debit">
-      {{getTotalExpense(vm.expenses) | currency: 'LKR '}}
+      {{ getTotalExpense(vm.expenses) | currency : "LKR " }}
     </span>
   </p>
-  <p>Balance Remaining:
-    <span [ngClass]="getBalance(vm.summary.salary, vm.expenses) > 0 ? 'credit' : 'debit'">
-      {{ getBalance(vm.summary.salary, vm.expenses) | currency: 'LKR '}}
+  <p>
+    Balance Remaining:
+    <span
+      [ngClass]="
+        getBalance(vm.summary.salary, vm.expenses) > 0 ? 'credit' : 'debit'
+      "
+    >
+      {{ getBalance(vm.summary.salary, vm.expenses) | currency : "LKR " }}
     </span>
   </p>
-  <button mat-raised-button type="button" (click)="viewAllExpenses(vm.expenses)">View All</button>
-  <button mat-raised-button color="primary" type="button" (click)="download(vm.expenses)">Download</button>
-</div>
+  <button
+    mat-raised-button
+    type="button"
+    (click)="viewAllExpenses(vm.expenses)"
+  >
+    View All
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    type="button"
+    (click)="download(vm.expenses)"
+  >
+    Download
+  </button>
+</div> -->

@@ -1,0 +1,33 @@
+<form autocomplete="off" [formGroup]="expenseForm" (ngSubmit)="addExpense()">
+  <mat-form-field class="example-form-field" appearance="fill">
+    <mat-label>Description</mat-label>
+    <input formControlName="description" matInput type="text" />
+  </mat-form-field>
+  <mat-form-field class="example-form-field" appearance="fill">
+    <mat-label>Amount</mat-label>
+    <input #amount formControlName="amount" matInput type="number" />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Transaction Type</mat-label>
+    <mat-select formControlName="type">
+      <mat-option value="D">Debit</mat-option>
+      <mat-option value="C">Credit</mat-option>
+      <mat-option value="S">Savings</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div class="date-picker">
+    <button type="button" mat-icon-button color="primary" (click)="datePrev()">
+      <mat-icon>arrow_back_ios</mat-icon>
+    </button>
+    <mat-form-field appearance="fill">
+      <mat-label>Choose a date</mat-label>
+      <input formControlName="date" matInput [matDatepicker]="picker" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <button type="button" mat-icon-button color="primary" (click)="dateNext()">
+      <mat-icon>arrow_forward_ios</mat-icon>
+    </button>
+  </div>
+  <button mat-raised-button type="submit" color="primary">Add Expense</button>
+</form>
